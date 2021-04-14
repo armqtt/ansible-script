@@ -1,0 +1,16 @@
+---
+- hosts: todo_host
+  vars:
+############### Must Input the User Name
+    runner_user: "myusername"
+    runner_user_home: "/home/{{ runner_user }}"
+  tasks:
+    - name: Create .ssh folder
+      file: path="{{ runner_user_home }}/.ssh" state=directory owner={{ runner_user }} group={{ runner_user }} mode=0700
+    - name: Push authorized_keys to dst
+      action: template src=authorized_keys dest={{ runner_user_home }}/.ssh/authorized_keys
+    - name: Change authorized_keys Permission
+      "file": "path={{ runner_user_home }}/.ssh/authorized_keys owner={{ runner_user }} group={{ runner_user }} mode=0600" ## Enter file in which to save the key (/home/<remote_user>/.ssh/authorized_keys)
+    - name: read public key
+      command: "cat {{ runner_user_home }}/.ssh/authorized_keys"
+      register: runner_pub_key

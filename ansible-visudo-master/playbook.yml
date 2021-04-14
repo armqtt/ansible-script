@@ -1,0 +1,7 @@
+- hosts: todo_host
+  user: myusername
+  # sudo: True
+  # gather_facts: False
+
+  roles:
+    - common

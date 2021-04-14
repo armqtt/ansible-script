@@ -1,0 +1,26 @@
+---
+
+# - name: Install /etc/sudoers.tmp file.
+  # action: template src=../files/sudoers dest=/etc/sudoers.tmp
+
+# - name: Set the permissions.
+  # file: path=/etc/sudoers.tmp owner=root group=root mode=0440
+
+# - name: Final sudoers file check
+  # shell: visudo -c -f /etc/sudoers.tmp && cp -f /etc/sudoers.tmp /etc/sudoers
+
+- name: Add New User
+  shell: /usr/sbin/useradd {{ user_name }}
+
+# - name: Add Password
+  # shell: echo "91269310" | passwd {{ user_name }} --stdin
+
+
+- name: Add New Sudoer
+  shell: echo '{{ user_name }} ALL=(ALL) ALL' >> /etc/sudoers
+
+- name: Final sudoers file check
+  shell: visudo -c -f /etc/sudoers
+
+# - name: Restart ssh.
+  # command: ssh restart

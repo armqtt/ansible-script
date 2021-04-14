@@ -1,0 +1,7 @@
+---
+- hosts: todo_host
+  vars:
+    user_name: "username"
+  tasks:
+  - name: Remove New User
+    shell: /usr/sbin/userdel {{ user_name }}
