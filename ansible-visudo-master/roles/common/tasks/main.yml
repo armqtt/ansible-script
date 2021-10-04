@@ -13,7 +13,7 @@
   shell: /usr/sbin/useradd {{ user_name }}
 
 # - name: Add Password
-  # shell: echo "91269310" | passwd {{ user_name }} --stdin
+  # shell: echo "Your_Password" | passwd {{ user_name }} --stdin
 
 
 - name: Add New Sudoer
